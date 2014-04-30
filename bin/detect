@@ -5,4 +5,4 @@ if [ -f $1/.chef/knife.rb ]; then
   exit 0
 else
   exit 1
-end
+fi
