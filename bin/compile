@@ -1,0 +1,37 @@
+#!/bin/sh
+
+BUILD_ROOT=$1
+
+indent() {
+  sed -u 's/^/       /'
+}
+
+message() {
+  echo "-----> $*"
+}
+
+cd $BUILD_ROOT
+
+message "Setting environment variables"
+export GEM_HOME=$BUILD_ROOT/.gems
+export PATH=$GEM_HOME/bin:$PATH
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF8
+
+cat << EOF > ~/.gemrc
+gem: --no-ri --no-rdoc
+gemhome: $BUILD_ROOT/.gems
+gempath:
+- $BUILD_ROOT/.gems
+EOF
+
+message "Installing test-kitchen"
+gem install test-kitchen
+
+# Install dependencies if a Gemfile is present
+if [ -f Gemfile ]
+then
+    message "Installing bundled dependencies"
+    gem install bundler
+    bundle install
+fi

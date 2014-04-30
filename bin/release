@@ -1,0 +1,8 @@
+#!/bin/sh
+
+cat << EOF
+---
+addons:
+default_process_types:
+  kitchen: env GEM_HOME=./.gems ./.gems/bin/kitchen test
+EOF

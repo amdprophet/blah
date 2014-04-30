@@ -1,0 +1,8 @@
+#!/bin/bash
+
+if [ -f $1/.chef/knife.rb ]; then
+  echo "Chef Repository"
+  exit 0
+else
+  exit 1
+end
